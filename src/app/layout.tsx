@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { MobileFooter } from "@/components/MobileFooter";
 
 export const metadata: Metadata = {
   title: "DEEPAK",
@@ -36,10 +37,11 @@ export default function RootLayout({
         )}
       >
         <Header />
-        <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8">
+        <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 pb-24 md:pb-0">
           {children}
         </main>
         <Footer />
+        <MobileFooter />
         <Toaster />
       </body>
     </html>
