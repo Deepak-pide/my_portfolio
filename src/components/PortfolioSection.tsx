@@ -1,8 +1,9 @@
+
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -13,14 +14,61 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { projects } from "@/lib/data";
+import { getProjects } from "@/actions/projects";
+import type { Project } from "@/lib/data";
 import { ArrowUpRight } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Skeleton } from "./ui/skeleton";
 
-const hardwareProjects = projects.filter((p) => p.category === "Hardware");
-const softwareProjects = projects.filter((p) => p.category === "Software");
 
 export function PortfolioSection() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadProjects() {
+      setLoading(true);
+      const fetchedProjects = await getProjects();
+      setProjects(fetchedProjects);
+      setLoading(false);
+    }
+    loadProjects();
+  }, []);
+
+  const hardwareProjects = projects.filter((p) => p.category === "Hardware");
+  const softwareProjects = projects.filter((p) => p.category === "Software");
+
+  if (loading) {
+    return (
+      <section id="portfolio" className="py-16">
+        <div className="text-center">
+          <h2 className="font-headline text-4xl md:text-5xl">My Work</h2>
+          <p className="mt-2 text-lg text-muted-foreground">
+            A selection of my projects.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+          {[...Array(3)].map((_, i) => (
+             <Card key={i}>
+              <CardHeader>
+                <Skeleton className="h-[225px] w-full rounded-lg" />
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <Skeleton className="h-6 w-3/4" />
+                <Skeleton className="h-4 w-full" />
+                 <Skeleton className="h-4 w-1/2" />
+              </CardContent>
+               <CardFooter className="flex justify-between">
+                 <Skeleton className="h-10 w-28" />
+                 <Skeleton className="h-10 w-20" />
+               </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="portfolio" className="py-16">
       <div className="text-center">
