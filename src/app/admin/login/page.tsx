@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState }I from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -10,19 +10,20 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 
 export default function LoginPage() {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
   const { toast } = useToast();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === "password") { // In a real app, use a secure auth system
+    if (email === "dg36676610@gmail.com" && password === "password") { // In a real app, use a secure auth system
       sessionStorage.setItem("isAdmin", "true");
       router.push("/admin/dashboard");
     } else {
       toast({
         title: "Error",
-        description: "Incorrect password.",
+        description: "Incorrect email or password.",
         variant: "destructive",
       });
     }
@@ -36,6 +37,17 @@ export default function LoginPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
+             <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="admin@example.com"
+              />
+            </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <Input
