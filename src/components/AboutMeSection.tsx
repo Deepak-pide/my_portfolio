@@ -65,10 +65,7 @@ export function AboutMeSection() {
         <div className="md:col-span-2">
             <h2 className="font-headline text-4xl md:text-5xl mb-6 text-center md:text-left">About Me</h2>
             <Card>
-              <CardHeader className="flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                <CardTitle className="font-headline text-2xl tracking-wide">
-                  Who are you?
-                </CardTitle>
+              <CardHeader className="flex-col md:flex-row items-start md:items-center justify-end gap-4">
                 <Select onValueChange={handleRoleChange} defaultValue={visitorRoles[0].value}>
                   <SelectTrigger className="w-full md:w-[200px]">
                     <SelectValue placeholder="Select your role" />
