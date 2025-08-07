@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin, Instagram } from "lucide-react";
 
 export function HeroSection() {
   return (
@@ -20,8 +20,8 @@ export function HeroSection() {
           <div className="flex items-center gap-2">
             <Button variant="outline" size="icon" asChild>
               <Link href="#">
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
+                <Instagram className="h-5 w-5" />
+                <span className="sr-only">Instagram</span>
               </Link>
             </Button>
             <Button variant="outline" size="icon" asChild>

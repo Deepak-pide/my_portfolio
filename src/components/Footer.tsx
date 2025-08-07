@@ -1,4 +1,4 @@
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin, Instagram } from "lucide-react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 
@@ -12,8 +12,8 @@ export function Footer() {
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon" asChild>
             <Link href="#">
-              <Twitter className="h-4 w-4" />
-              <span className="sr-only">Twitter</span>
+              <Instagram className="h-4 w-4" />
+              <span className="sr-only">Instagram</span>
             </Link>
           </Button>
           <Button variant="ghost" size="icon" asChild>
