@@ -48,18 +48,6 @@ export function AboutMeSection() {
         <div className="md:col-span-2">
             
             <div className="text-muted-foreground space-y-4 min-h-[150px]">
-              {isPending ? (
-                <>
-                  <Skeleton className="h-4 w-full" />
-                  <Skeleton className="h-4 w-full" />
-                  <Skeleton className="h-4 w-full" />
-                  <Skeleton className="h-4 w-3/4" />
-                </>
-              ) : (
-                <p className="leading-relaxed">
-                  {aboutMeContent}
-                </p>
-              )}
             </div>
         </div>
       </div>
