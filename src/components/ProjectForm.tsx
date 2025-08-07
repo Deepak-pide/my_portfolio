@@ -48,11 +48,12 @@ export function ProjectForm({ project, onSuccess, onCancel }: ProjectFormProps) 
       id: project?.id || undefined,
       title: project?.title || "",
       description: project?.description || "",
+      longDescription: project?.longDescription || "",
       category: project?.category || "Software",
       image: project?.image || "",
+      extraPhotos: project?.extraPhotos?.join(", ") || "",
       aiHint: project?.aiHint || "",
       liveUrl: project?.liveUrl || "",
-      githubUrl: project?.githubUrl || "",
       tags: project?.tags.join(", ") || "",
     },
   });
@@ -62,11 +63,12 @@ export function ProjectForm({ project, onSuccess, onCancel }: ProjectFormProps) 
         const projectData = {
             ...values,
             tags: values.tags.split(",").map(tag => tag.trim()),
+            extraPhotos: values.extraPhotos ? values.extraPhotos.split(",").map(photo => photo.trim()) : [],
         };
 
       const result = isEditing
         ? await updateProject(projectData as Project)
-        : await addProject(projectData);
+        : await addProject(projectData as Omit<Project, 'id'>);
 
       if (result.success) {
         toast({
@@ -135,7 +137,20 @@ export function ProjectForm({ project, onSuccess, onCancel }: ProjectFormProps) 
                     <FormItem>
                         <FormLabel>Small Description</FormLabel>
                         <FormControl>
-                        <Textarea placeholder="Project description..." {...field} />
+                        <Textarea placeholder="Short project description..." {...field} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="longDescription"
+                    render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Long Description</FormLabel>
+                        <FormControl>
+                        <Textarea placeholder="Detailed project description..." className="min-h-[150px]" {...field} />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
@@ -169,6 +184,19 @@ export function ProjectForm({ project, onSuccess, onCancel }: ProjectFormProps) 
                         )}
                     />
                 </div>
+                 <FormField
+                    control={form.control}
+                    name="extraPhotos"
+                    render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Extra Photos (comma-separated URLs)</FormLabel>
+                        <FormControl>
+                        <Input placeholder="url1, url2, url3" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                    )}
+                />
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <FormField
                         control={form.control}
@@ -178,19 +206,6 @@ export function ProjectForm({ project, onSuccess, onCancel }: ProjectFormProps) 
                             <FormLabel>Visit Link</FormLabel>
                             <FormControl>
                             <Input placeholder="https://example.com/live" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                        )}
-                    />
-                     <FormField
-                        control={form.control}
-                        name="githubUrl"
-                        render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>More Details Link</FormLabel>
-                            <FormControl>
-                            <Input placeholder="https://github.com/user/repo" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

@@ -1,5 +1,6 @@
 
 
+
 import { z } from "zod";
 
 export const contactFormSchema = z.object({
@@ -12,11 +13,12 @@ export const projectSchema = z.object({
   id: z.string().optional(),
   title: z.string().min(2, "Title must be at least 2 characters."),
   description: z.string().min(10, "Description must be at least 10 characters."),
+  longDescription: z.string().min(20, "Long description must be at least 20 characters."),
   category: z.enum(["Software", "Hardware"]),
   image: z.string().url("Please enter a valid URL."),
+  extraPhotos: z.string().optional(),
   aiHint: z.string().optional(),
   liveUrl: z.string().url("Please enter a valid URL."),
-  githubUrl: z.string().url("Please enter a valid URL."),
   tags: z.string().min(1, "Please enter at least one label."),
 });
 

@@ -1,4 +1,5 @@
 
+
 export interface Startup {
   id?: string;
   logo: string;
@@ -13,10 +14,11 @@ export interface Project {
   category: "Software" | "Hardware";
   title: string;
   description: string;
+  longDescription: string;
   image: string;
+  extraPhotos: string[];
   tags: string[];
   liveUrl: string;
-  githubUrl: string;
   aiHint: string;
 }
 
