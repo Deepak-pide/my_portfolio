@@ -11,7 +11,7 @@ export function MobileFooter() {
         </Link>
         <Link href="/#portfolio" className="flex flex-col items-center text-muted-foreground hover:text-primary transition-colors">
           <Briefcase className="h-6 w-6" />
-          <span className="text-xs">Portfolio</span>
+          <span className="text-xs">Projects</span>
         </Link>
         <Link href="/#about" className="flex flex-col items-center text-muted-foreground hover:text-primary transition-colors">
           <User className="h-6 w-6" />
