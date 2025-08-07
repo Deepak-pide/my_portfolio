@@ -1,10 +1,11 @@
+
 "use client";
 
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Download, Menu, Mountain, LogIn } from "lucide-react";
+import { Download, Menu, Cpu, LogIn } from "lucide-react";
 
 const navLinks = [
   { href: "/#portfolio", label: "Portfolio" },
@@ -22,7 +23,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 max-w-screen-2xl items-center justify-between">
         <Link href="/" className="flex items-center gap-2" passHref>
-            <Mountain className="h-6 w-6" />
+            <Cpu className="h-6 w-6" />
             <span className="font-headline text-xl font-semibold">
               DEEPAK
             </span>
@@ -65,7 +66,7 @@ export function Header() {
           <SheetContent side="right">
             <div className="flex flex-col gap-6 p-6">
               <Link href="/" className="flex items-center gap-2" onClick={closeSheet} passHref>
-                  <Mountain className="h-6 w-6" />
+                  <Cpu className="h-6 w-6" />
                   <span className="font-headline text-xl font-semibold">
                     DEEPAK
                   </span>
