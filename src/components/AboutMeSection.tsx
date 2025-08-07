@@ -4,7 +4,6 @@
 import { useState, useCallback, useTransition } from "react";
 import Image from "next/image";
 import { generateAboutMe } from "@/ai/flows/generate-about-me";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -36,6 +35,9 @@ export function AboutMeSection() {
 
   return (
     <section id="about" className="py-16">
+      <div className="text-center md:text-left">
+        <h2 className="font-headline text-4xl md:text-5xl mb-6">About Me</h2>
+      </div>
        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
         <div className="md:col-span-1 flex flex-col items-center text-center">
             <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-primary/10 shadow-lg">
@@ -63,39 +65,34 @@ export function AboutMeSection() {
             </div>
         </div>
         <div className="md:col-span-2">
-            <h2 className="font-headline text-4xl md:text-5xl mb-6 text-center md:text-left">About Me</h2>
-            <Card>
-              <CardHeader className="flex-col md:flex-row items-start md:items-center justify-end gap-4">
-                <Select onValueChange={handleRoleChange} defaultValue={visitorRoles[0].value}>
-                  <SelectTrigger className="w-full md:w-[200px]">
-                    <SelectValue placeholder="Select your role" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {visitorRoles.map((role) => (
-                      <SelectItem key={role.value} value={role.value}>
-                        {role.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </CardHeader>
-              <CardContent className="pt-4">
-                <div className="text-muted-foreground space-y-4 min-h-[150px]">
-                  {isPending ? (
-                    <>
-                      <Skeleton className="h-4 w-full" />
-                      <Skeleton className="h-4 w-full" />
-                      <Skeleton className="h-4 w-full" />
-                      <Skeleton className="h-4 w-3/4" />
-                    </>
-                  ) : (
-                    <p className="leading-relaxed">
-                      {aboutMeContent || "Select a role above to see a personalized introduction. I am a versatile developer with a passion for creating beautiful and functional web applications that bridge the gap between hardware and software."}
-                    </p>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
+            <div className="flex justify-end mb-4">
+              <Select onValueChange={handleRoleChange} defaultValue={visitorRoles[0].value}>
+                <SelectTrigger className="w-full md:w-[200px]">
+                  <SelectValue placeholder="Select your role" />
+                </SelectTrigger>
+                <SelectContent>
+                  {visitorRoles.map((role) => (
+                    <SelectItem key={role.value} value={role.value}>
+                      {role.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="text-muted-foreground space-y-4 min-h-[150px]">
+              {isPending ? (
+                <>
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-3/4" />
+                </>
+              ) : (
+                <p className="leading-relaxed">
+                  {aboutMeContent || "Select a role above to see a personalized introduction. I am a versatile developer with a passion for creating beautiful and functional web applications that bridge the gap between hardware and software."}
+                </p>
+              )}
+            </div>
         </div>
       </div>
     </section>
