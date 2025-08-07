@@ -10,8 +10,7 @@ export function HeroSection() {
           DEEPAK
         </h1>
         <p className="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground">
-          A creative developer crafting elegant and modern web experiences.
-          Explore my work and let's build something amazing together.
+          From embedded systems to full-stack development, I create solutions where hardware meets software. Explore my projects and let’s collaborate.
         </p>
         <div className="mt-8 flex justify-center gap-4">
           <Button asChild>
