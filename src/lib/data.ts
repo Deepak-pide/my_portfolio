@@ -1,30 +1,63 @@
 export const projects = [
   {
-    title: "Project Alpha",
-    description: "A web application for project management, designed to streamline team collaboration and task tracking.",
+    category: "Software",
+    title: "AI Portfolio Generator",
+    description: "A portfolio website that uses generative AI to tailor content to visitors.",
     image: "https://placehold.co/600x400.png",
-    tags: ["React", "Node.js", "PostgreSQL", "Tailwind CSS"],
+    tags: ["Next.js", "Genkit", "Tailwind CSS", "Firebase"],
     liveUrl: "#",
     githubUrl: "#",
-    aiHint: "project management"
+    aiHint: "AI portfolio"
   },
   {
-    title: "Project Beta",
-    description: "An e-commerce platform with a modern design, focusing on user experience and performance.",
+    category: "Software",
+    title: "E-Commerce Analytics Dashboard",
+    description: "A comprehensive dashboard for visualizing sales data and customer behavior for an online store.",
     image: "https://placehold.co/600x400.png",
-    tags: ["Next.js", "Stripe", "GraphQL", "TypeScript"],
+    tags: ["React", "D3.js", "Node.js", "Express"],
     liveUrl: "#",
     githubUrl: "#",
-    aiHint: "ecommerce platform"
+    aiHint: "analytics dashboard"
   },
   {
-    title: "Project Gamma",
-    description: "A mobile-first social media app that connects people through shared interests and events.",
+    category: "Software",
+    title: "Task Management App",
+    description: "A cross-platform application for managing tasks and improving productivity.",
     image: "https://placehold.co/600x400.png",
-    tags: ["React Native", "Firebase", "Redux"],
+    tags: ["Flutter", "Firebase", "Dart"],
     liveUrl: "#",
     githubUrl: "#",
-    aiHint: "social media"
+    aiHint: "task management"
+  },
+  {
+    category: "Hardware",
+    title: "IoT Smart Home Hub",
+    description: "A central hub to control and monitor various smart devices in a home environment.",
+    image: "https://placehold.co/600x400.png",
+    tags: ["Raspberry Pi", "Python", "MQTT", "Node-RED"],
+    liveUrl: "#",
+    githubUrl: "#",
+    aiHint: "smart home"
+  },
+  {
+    category: "Hardware",
+    title: "Automated Plant Watering System",
+    description: "A system that automatically waters plants based on soil moisture levels, with remote monitoring.",
+    image: "https://placehold.co/600x400.png",
+    tags: ["Arduino", "C++", "Sensors", "Blynk"],
+    liveUrl: "#",
+    githubUrl: "#",
+    aiHint: "plant watering"
+  },
+  {
+    category: "Hardware",
+    title: "Portable Weather Station",
+    description: "A compact, battery-powered weather station that measures temperature, humidity, and pressure.",
+    image: "https://placehold.co/600x400.png",
+    tags: ["ESP32", "Micropython", "Sensors"],
+    liveUrl: "#",
+    githubUrl: "#",
+    aiHint: "weather station"
   },
 ];
 
@@ -86,5 +119,6 @@ This shift represents a major step forward in building fast, scalable web applic
 
 export const skills = [
   "TypeScript", "JavaScript", "React", "Next.js", "Node.js", "Python",
-  "GraphQL", "REST APIs", "PostgreSQL", "MongoDB", "Docker", "Git"
+  "GraphQL", "REST APIs", "PostgreSQL", "MongoDB", "Docker", "Git",
+  "Raspberry Pi", "Arduino", "IoT", "Embedded Systems"
 ];
