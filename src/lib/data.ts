@@ -1,4 +1,12 @@
 
+export interface Startup {
+  id?: string;
+  logo: string;
+  appName: string;
+  description: string;
+  link: string;
+  aiHint: string;
+}
 
 export interface Project {
   id?: string;

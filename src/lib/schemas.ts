@@ -1,4 +1,5 @@
 
+
 import { z } from "zod";
 
 export const contactFormSchema = z.object({
@@ -25,4 +26,12 @@ export const aboutMeSchema = z.object({
     skills: z.array(z.string()).min(1, "Please add at least one skill."),
 });
 
+export const startupSchema = z.object({
+  id: z.string().optional(),
+  logo: z.string().url("Please enter a valid URL for the logo."),
+  appName: z.string().min(2, "App name must be at least 2 characters."),
+  description: z.string().min(10, "Description must be at least 10 characters."),
+  link: z.string().url("Please enter a valid URL for the link."),
+  aiHint: z.string().optional(),
+});
     
