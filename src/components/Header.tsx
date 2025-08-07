@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Download, Menu, Mountain } from "lucide-react";
+import { Download, Menu, Mountain, LogIn } from "lucide-react";
 
 const navLinks = [
   { href: "/#portfolio", label: "Portfolio" },
@@ -47,6 +47,12 @@ export function Header() {
               Resume
             </a>
           </Button>
+           <Button asChild size="sm">
+            <Link href="/admin/login">
+              <LogIn className="mr-2 h-4 w-4" />
+              Login
+            </Link>
+          </Button>
         </div>
 
         <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
@@ -76,12 +82,20 @@ export function Header() {
                   </Link>
                 ))}
               </nav>
-              <Button asChild variant="outline">
-                <a href="/resume.pdf" download="resume.pdf">
-                  <Download className="mr-2 h-4 w-4" />
-                  Download Resume
-                </a>
-              </Button>
+               <div className="flex flex-col gap-4">
+                <Button asChild variant="outline">
+                  <a href="/resume.pdf" download="resume.pdf">
+                    <Download className="mr-2 h-4 w-4" />
+                    Download Resume
+                  </a>
+                </Button>
+                 <Button asChild>
+                  <Link href="/admin/login" onClick={closeSheet}>
+                    <LogIn className="mr-2 h-4 w-4" />
+                    Login
+                  </Link>
+                </Button>
+              </div>
             </div>
           </SheetContent>
         </Sheet>
