@@ -78,7 +78,7 @@ export function AboutMeSection() {
           <h3 className="font-headline text-3xl md:text-4xl">My Skills</h3>
            <div className="mt-6 flex flex-wrap gap-2">
               {skills.map((skill) => (
-                <Badge key={skill} variant="default" className="text-sm px-3 py-1 bg-primary text-primary-foreground hover:bg-primary/90">
+                <Badge key={skill} variant="secondary" className="text-sm px-3 py-1">
                   {skill}
                 </Badge>
               ))}
