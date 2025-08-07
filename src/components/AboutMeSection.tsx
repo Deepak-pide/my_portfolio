@@ -1,37 +1,18 @@
 
 "use client";
 
-import { useState, useCallback, useTransition } from "react";
+import { useState, useCallback, useTransition, useEffect } from "react";
 import Image from "next/image";
 import { generateAboutMe } from "@/ai/flows/generate-about-me";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "./ui/badge";
 import { skills } from "@/lib/data";
 
-const visitorRoles = [
-  { value: "potential client", label: "Potential Client" },
-  { value: "recruiter", label: "Recruiter" },
-  { value: "fellow developer", label: "Fellow Developer" },
-  { value: "design enthusiast", label: "Design Enthusiast" },
-];
+const defaultIntro = "I am a versatile developer with a passion for creating beautiful and functional web applications that bridge the gap between hardware and software. My expertise in both domains allows me to build seamless, end-to-end solutions, from the electronic components to the user interface. I thrive on challenges and am always eager to learn new technologies to push the boundaries of what's possible.";
 
 export function AboutMeSection() {
-  const [aboutMeContent, setAboutMeContent] = useState("");
+  const [aboutMeContent, setAboutMeContent] = useState(defaultIntro);
   const [isPending, startTransition] = useTransition();
-
-  const handleRoleChange = useCallback((role: string) => {
-    startTransition(async () => {
-      const result = await generateAboutMe({ visitorRole: role });
-      setAboutMeContent(result.aboutMeContent);
-    });
-  }, []);
 
   return (
     <section id="about" className="py-16">
@@ -65,20 +46,7 @@ export function AboutMeSection() {
             </div>
         </div>
         <div className="md:col-span-2">
-            <div className="flex justify-end mb-4">
-              <Select onValueChange={handleRoleChange} defaultValue={visitorRoles[0].value}>
-                <SelectTrigger className="w-full md:w-[200px]">
-                  <SelectValue placeholder="Select your role" />
-                </SelectTrigger>
-                <SelectContent>
-                  {visitorRoles.map((role) => (
-                    <SelectItem key={role.value} value={role.value}>
-                      {role.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+            
             <div className="text-muted-foreground space-y-4 min-h-[150px]">
               {isPending ? (
                 <>
@@ -89,7 +57,7 @@ export function AboutMeSection() {
                 </>
               ) : (
                 <p className="leading-relaxed">
-                  {aboutMeContent || "Select a role above to see a personalized introduction. I am a versatile developer with a passion for creating beautiful and functional web applications that bridge the gap between hardware and software."}
+                  {aboutMeContent}
                 </p>
               )}
             </div>
