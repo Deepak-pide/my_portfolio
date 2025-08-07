@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -23,9 +22,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { auth } from "@/lib/firebase";
+import { signOut } from "firebase/auth";
+import { useToast } from "@/hooks/use-toast";
 
 export default function DashboardPage() {
   const router = useRouter();
+  const { toast } = useToast();
   const [projects, setProjects] = useState<Project[]>([]);
   const [startups, setStartups] = useState<Startup[]>([]);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
@@ -33,16 +36,37 @@ export default function DashboardPage() {
   const [isProjectFormOpen, setIsProjectFormOpen] = useState(false);
   const [isStartupFormOpen, setIsStartupFormOpen] = useState(false);
   const [isAboutFormOpen, setIsAboutFormOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const isAdmin = sessionStorage.getItem("isAdmin");
-    if (isAdmin !== "true") {
-      router.push("/admin/login");
-    } else {
-      loadProjects();
-      loadStartups();
-    }
+    const checkAuth = async () => {
+      // Use onAuthStateChanged for robust auth state management
+      const unsubscribe = auth.onAuthStateChanged(user => {
+        if (user) {
+          sessionStorage.setItem("isAdmin", "true");
+          setIsAdmin(true);
+          loadProjects();
+          loadStartups();
+        } else {
+          sessionStorage.removeItem("isAdmin");
+          setIsAdmin(false);
+          router.push("/admin/login");
+        }
+      });
+      return () => unsubscribe();
+    };
+    checkAuth();
   }, [router]);
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    sessionStorage.removeItem("isAdmin");
+    router.push("/admin/login");
+    toast({
+        title: "Logged Out",
+        description: "You have been successfully logged out.",
+    });
+  };
 
   const loadProjects = async () => {
     const fetchedProjects = await getProjects();
@@ -100,12 +124,24 @@ export default function DashboardPage() {
 
   const softwareProjects = projects.filter((p) => p.category === "Software");
   const hardwareProjects = projects.filter((p) => p.category === "Hardware");
+  
+  if (!isAdmin) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
 
   return (
     <div className="py-16">
       <div className="flex justify-between items-center mb-8">
         <h1 className="font-headline text-4xl">Admin Dashboard</h1>
-         <Button onClick={() => setIsAboutFormOpen(true)}>Edit About Me</Button>
+         <div className="flex gap-4">
+            <Button onClick={() => setIsAboutFormOpen(true)}>Edit About Me</Button>
+            <Button variant="outline" onClick={handleLogout}>Sign Out</Button>
+         </div>
       </div>
       
        {isAboutFormOpen && (

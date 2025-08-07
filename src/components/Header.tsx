@@ -1,11 +1,15 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Download, Menu, Cpu, LogIn } from "lucide-react";
+import { Download, Menu, Cpu, LogIn, LogOut } from "lucide-react";
+import { auth } from "@/lib/firebase";
+import { signOut } from "firebase/auth";
+import { useToast } from "@/hooks/use-toast";
 
 const navLinks = [
   { href: "/#portfolio", label: "Portfolio" },
@@ -16,8 +20,29 @@ const navLinks = [
 
 export function Header() {
   const [isSheetOpen, setSheetOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const router = useRouter();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      setIsAdmin(!!user);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const closeSheet = () => setSheetOpen(false);
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    sessionStorage.removeItem("isAdmin");
+    closeSheet();
+    router.push("/");
+    toast({
+        title: "Logged Out",
+        description: "You have been successfully logged out.",
+    });
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -39,6 +64,11 @@ export function Header() {
               {link.label}
             </Link>
           ))}
+           {isAdmin && (
+            <Link href="/admin/dashboard" className="transition-colors hover:text-foreground/80 text-foreground/60">
+              Dashboard
+            </Link>
+          )}
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
@@ -48,12 +78,19 @@ export function Header() {
               Resume
             </a>
           </Button>
-           <Button asChild size="sm">
-            <Link href="/admin/login">
-              <LogIn className="mr-2 h-4 w-4" />
-              Login
-            </Link>
-          </Button>
+           {isAdmin ? (
+            <Button onClick={handleLogout} size="sm">
+              <LogOut className="mr-2 h-4 w-4" />
+              Logout
+            </Button>
+           ) : (
+            <Button asChild size="sm">
+              <Link href="/admin/login">
+                <LogIn className="mr-2 h-4 w-4" />
+                Login
+              </Link>
+            </Button>
+           )}
         </div>
 
         <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
@@ -82,20 +119,32 @@ export function Header() {
                     {link.label}
                   </Link>
                 ))}
+                 {isAdmin && (
+                  <Link href="/admin/dashboard" onClick={closeSheet} className="font-medium text-lg">
+                    Dashboard
+                  </Link>
+                )}
               </nav>
-               <div className="flex flex-col gap-4">
+               <div className="flex flex-col gap-4 mt-auto">
                 <Button asChild variant="outline">
                   <a href="/resume.pdf" download="resume.pdf">
                     <Download className="mr-2 h-4 w-4" />
                     Download Resume
                   </a>
                 </Button>
-                 <Button asChild>
-                  <Link href="/admin/login" onClick={closeSheet}>
-                    <LogIn className="mr-2 h-4 w-4" />
-                    Login
-                  </Link>
-                </Button>
+                 {isAdmin ? (
+                    <Button onClick={handleLogout}>
+                      <LogOut className="mr-2 h-4 w-4" />
+                      Logout
+                    </Button>
+                  ) : (
+                    <Button asChild>
+                      <Link href="/admin/login" onClick={closeSheet}>
+                        <LogIn className="mr-2 h-4 w-4" />
+                        Login
+                      </Link>
+                    </Button>
+                  )}
               </div>
             </div>
           </SheetContent>
