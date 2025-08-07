@@ -121,12 +121,12 @@ export function PortfolioSection() {
                   <CardFooter className="flex justify-between">
                     <Button variant="outline" asChild>
                       <Link href={project.liveUrl} target="_blank">
-                        Live Demo <ArrowUpRight className="ml-2 h-4 w-4" />
+                        Visit <ArrowUpRight className="ml-2 h-4 w-4" />
                       </Link>
                     </Button>
                     <Button variant="ghost" asChild>
                       <Link href={project.githubUrl} target="_blank">
-                        GitHub
+                        More Details
                       </Link>
                     </Button>
                   </CardFooter>
@@ -170,12 +170,12 @@ export function PortfolioSection() {
                   <CardFooter className="flex justify-between">
                     <Button variant="outline" asChild>
                       <Link href={project.liveUrl} target="_blank">
-                        Learn More <ArrowUpRight className="ml-2 h-4 w-4" />
+                        Visit <ArrowUpRight className="ml-2 h-4 w-4" />
                       </Link>
                     </Button>
                     <Button variant="ghost" asChild>
                       <Link href={project.githubUrl} target="_blank">
-                        GitHub
+                        More Details
                       </Link>
                     </Button>
                   </CardFooter>
@@ -227,12 +227,12 @@ export function PortfolioSection() {
                 <CardFooter className="flex justify-between">
                   <Button variant="outline" asChild>
                     <Link href={project.liveUrl} target="_blank">
-                      Live Demo <ArrowUpRight className="ml-2 h-4 w-4" />
+                      Visit <ArrowUpRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
                   <Button variant="ghost" asChild>
                     <Link href={project.githubUrl} target="_blank">
-                      GitHub
+                      More Details
                     </Link>
                   </Button>
                 </CardFooter>
@@ -280,12 +280,12 @@ export function PortfolioSection() {
                 <CardFooter className="flex justify-between">
                   <Button variant="outline" asChild>
                     <Link href={project.liveUrl} target="_blank">
-                      Learn More <ArrowUpRight className="ml-2 h-4 w-4" />
+                      Visit <ArrowUpRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
                   <Button variant="ghost" asChild>
                     <Link href={project.githubUrl} target="_blank">
-                      GitHub
+                      More Details
                     </Link>
                   </Button>
                 </CardFooter>

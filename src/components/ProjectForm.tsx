@@ -133,7 +133,7 @@ export function ProjectForm({ project, onSuccess, onCancel }: ProjectFormProps) 
                     name="description"
                     render={({ field }) => (
                     <FormItem>
-                        <FormLabel>Description</FormLabel>
+                        <FormLabel>Small Description</FormLabel>
                         <FormControl>
                         <Textarea placeholder="Project description..." {...field} />
                         </FormControl>
@@ -147,7 +147,7 @@ export function ProjectForm({ project, onSuccess, onCancel }: ProjectFormProps) 
                         name="image"
                         render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Image URL</FormLabel>
+                            <FormLabel>Thumbnail Photo URL</FormLabel>
                             <FormControl>
                             <Input placeholder="https://example.com/image.png" {...field} />
                             </FormControl>
@@ -175,7 +175,7 @@ export function ProjectForm({ project, onSuccess, onCancel }: ProjectFormProps) 
                         name="liveUrl"
                         render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Live Demo URL</FormLabel>
+                            <FormLabel>Visit Link</FormLabel>
                             <FormControl>
                             <Input placeholder="https://example.com/live" {...field} />
                             </FormControl>
@@ -188,7 +188,7 @@ export function ProjectForm({ project, onSuccess, onCancel }: ProjectFormProps) 
                         name="githubUrl"
                         render={({ field }) => (
                         <FormItem>
-                            <FormLabel>GitHub URL</FormLabel>
+                            <FormLabel>More Details Link</FormLabel>
                             <FormControl>
                             <Input placeholder="https://github.com/user/repo" {...field} />
                             </FormControl>
@@ -202,7 +202,7 @@ export function ProjectForm({ project, onSuccess, onCancel }: ProjectFormProps) 
                     name="tags"
                     render={({ field }) => (
                     <FormItem>
-                        <FormLabel>Tags (comma-separated)</FormLabel>
+                        <FormLabel>Labels (comma-separated)</FormLabel>
                         <FormControl>
                         <Input placeholder="React, Next.js, Tailwind CSS" {...field} />
                         </FormControl>

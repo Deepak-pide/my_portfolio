@@ -17,7 +17,7 @@ export const projectSchema = z.object({
   aiHint: z.string().optional(),
   liveUrl: z.string().url("Please enter a valid URL."),
   githubUrl: z.string().url("Please enter a valid URL."),
-  tags: z.string().min(1, "Please enter at least one tag."),
+  tags: z.string().min(1, "Please enter at least one label."),
 });
 
 export const aboutMeSchema = z.object({
