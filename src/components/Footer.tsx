@@ -7,7 +7,7 @@ export function Footer() {
     <footer className="w-full mt-24 mb-8">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} Luminous Canvas. All rights reserved.
+          &copy; {new Date().getFullYear()} DEEPAK. All rights reserved.
         </p>
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon" asChild>

@@ -6,7 +6,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Luminous Canvas",
+  title: "DEEPAK",
   description:
     "A visually appealing portfolio showcasing projects, skills, and experience.",
 };

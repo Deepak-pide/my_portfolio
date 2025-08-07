@@ -7,11 +7,11 @@ export function HeroSection() {
     <section className="py-24 md:py-32 text-center">
       <div className="container mx-auto">
         <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl tracking-wider leading-tight">
-          LUMINOUS CANVAS
+          DEEPAK
         </h1>
         <p className="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground">
           A creative developer crafting elegant and modern web experiences.
-          Explore my work and let&apos;s build something amazing together.
+          Explore my work and let's build something amazing together.
         </p>
         <div className="mt-8 flex justify-center gap-4">
           <Button asChild>

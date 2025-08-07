@@ -24,7 +24,7 @@ export function Header() {
         <Link href="/" className="flex items-center gap-2" passHref>
             <Mountain className="h-6 w-6" />
             <span className="font-headline text-xl font-semibold">
-              Luminous Canvas
+              DEEPAK
             </span>
         </Link>
 
@@ -61,7 +61,7 @@ export function Header() {
               <Link href="/" className="flex items-center gap-2" onClick={closeSheet} passHref>
                   <Mountain className="h-6 w-6" />
                   <span className="font-headline text-xl font-semibold">
-                    Luminous Canvas
+                    DEEPAK
                   </span>
               </Link>
               <nav className="flex flex-col gap-4">
