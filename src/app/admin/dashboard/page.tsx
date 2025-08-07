@@ -6,8 +6,9 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { getProjects, deleteProject } from "@/actions/projects";
-import type { Project } from "@/lib/data";
+import type { Project, AboutMeData } from "@/lib/data";
 import { ProjectForm } from "@/components/ProjectForm";
+import { AboutMeForm } from "@/components/AboutMeForm";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,7 +25,8 @@ export default function DashboardPage() {
   const router = useRouter();
   const [projects, setProjects] = useState<Project[]>([]);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isProjectFormOpen, setIsProjectFormOpen] = useState(false);
+  const [isAboutFormOpen, setIsAboutFormOpen] = useState(false);
 
   useEffect(() => {
     const isAdmin = sessionStorage.getItem("isAdmin");
@@ -42,12 +44,12 @@ export default function DashboardPage() {
 
   const handleEdit = (project: Project) => {
     setEditingProject(project);
-    setIsFormOpen(true);
+    setIsProjectFormOpen(true);
   };
 
   const handleAddNew = () => {
     setEditingProject(null);
-    setIsFormOpen(true);
+    setIsProjectFormOpen(true);
   };
 
   const handleDelete = async (id: string) => {
@@ -55,9 +57,13 @@ export default function DashboardPage() {
      loadProjects();
   }
 
-  const handleFormSuccess = () => {
-    setIsFormOpen(false);
+  const handleProjectFormSuccess = () => {
+    setIsProjectFormOpen(false);
     loadProjects();
+  }
+  
+  const handleAboutFormSuccess = () => {
+    setIsAboutFormOpen(false);
   }
 
   const softwareProjects = projects.filter((p) => p.category === "Software");
@@ -67,20 +73,32 @@ export default function DashboardPage() {
     <div className="py-16">
       <div className="flex justify-between items-center mb-8">
         <h1 className="font-headline text-4xl">Admin Dashboard</h1>
+         <Button onClick={() => setIsAboutFormOpen(true)}>Edit About Me</Button>
+      </div>
+      
+       {isAboutFormOpen && (
+        <AboutMeForm
+          onSuccess={handleAboutFormSuccess}
+          onCancel={() => setIsAboutFormOpen(false)}
+        />
+      )}
+
+      <div className="flex justify-between items-center mb-8 mt-12">
+         <h2 className="font-headline text-3xl">Projects</h2>
         <Button onClick={handleAddNew}>Add New Project</Button>
       </div>
 
-      {isFormOpen && (
+      {isProjectFormOpen && (
         <ProjectForm
           project={editingProject}
-          onSuccess={handleFormSuccess}
-          onCancel={() => setIsFormOpen(false)}
+          onSuccess={handleProjectFormSuccess}
+          onCancel={() => setIsProjectFormOpen(false)}
         />
       )}
 
       <div className="space-y-12">
         <section>
-          <h2 className="text-2xl font-headline mb-4">Software Projects</h2>
+          <h3 className="text-2xl font-headline mb-4">Software Projects</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {softwareProjects.map((project) => (
               <Card key={project.id}>
@@ -116,7 +134,7 @@ export default function DashboardPage() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-headline mb-4">Hardware Projects</h2>
+          <h3 className="text-2xl font-headline mb-4">Hardware Projects</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {hardwareProjects.map((project) => (
               <Card key={project.id}>
@@ -154,3 +172,5 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+    

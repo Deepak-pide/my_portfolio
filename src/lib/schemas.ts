@@ -18,3 +18,11 @@ export const projectSchema = z.object({
   githubUrl: z.string().url("Please enter a valid URL."),
   tags: z.string().min(1, "Please enter at least one tag."),
 });
+
+export const aboutMeSchema = z.object({
+    photo: z.string().url("Please enter a valid URL."),
+    tagline: z.string().min(10, "Tagline must be at least 10 characters."),
+    skills: z.array(z.string()).min(1, "Please add at least one skill."),
+});
+
+    

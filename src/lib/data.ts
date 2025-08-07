@@ -12,6 +12,13 @@ export interface Project {
   aiHint: string;
 }
 
+export interface AboutMeData {
+    photo: string;
+    tagline: string;
+    skills: string[];
+}
+
+
 export const blogPosts = [
   {
     slug: "mastering-react-hooks",
@@ -68,8 +75,4 @@ This shift represents a major step forward in building fast, scalable web applic
   }
 ];
 
-export const skills = [
-  "TypeScript", "JavaScript", "React", "Next.js", "Node.js", "Python",
-  "GraphQL", "REST APIs", "PostgreSQL", "MongoDB", "Docker", "Git",
-  "Raspberry Pi", "Arduino", "IoT", "Embedded Systems"
-];
+    
