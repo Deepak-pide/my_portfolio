@@ -11,19 +11,18 @@ import { useToast } from "@/hooks/use-toast";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const router = useRouter();
   const { toast } = useToast();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email === "dg36676610@gmail.com" && password === "password") { // In a real app, use a secure auth system
+    if (email) { 
       sessionStorage.setItem("isAdmin", "true");
       router.push("/admin/dashboard");
     } else {
       toast({
         title: "Error",
-        description: "Incorrect email or password.",
+        description: "Please enter an email address.",
         variant: "destructive",
       });
     }
@@ -48,16 +47,7 @@ export default function LoginPage() {
                 placeholder="admin@example.com"
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
+            
             <Button type="submit" className="w-full">
               Login
             </Button>
