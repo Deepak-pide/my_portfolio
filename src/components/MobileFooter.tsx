@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Home, FolderKanban, User, MessageSquare } from "lucide-react";
+import { Home, Bot, User, MessageSquare } from "lucide-react";
 
 export function MobileFooter() {
   return (
@@ -10,7 +10,7 @@ export function MobileFooter() {
           <span className="text-xs">Home</span>
         </Link>
         <Link href="/#portfolio" className="flex flex-col items-center text-muted-foreground hover:text-primary transition-colors">
-          <FolderKanban className="h-6 w-6" />
+          <Bot className="h-6 w-6" />
           <span className="text-xs">Projects</span>
         </Link>
         <Link href="/#about" className="flex flex-col items-center text-muted-foreground hover:text-primary transition-colors">
