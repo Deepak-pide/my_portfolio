@@ -106,7 +106,7 @@ export function AboutMeSection() {
                 <h2 className="font-headline text-4xl md:text-5xl">Startups</h2>
             </div>
          </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {startups.map((startup) => (
                 <StartupCard key={startup.id} startup={startup} />
             ))}
