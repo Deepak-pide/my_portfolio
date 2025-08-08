@@ -55,7 +55,7 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-16">
+    <section id="contact" className="py-12 md:py-16">
        <div className="sticky top-16 z-30 bg-background py-4">
         <div className="text-center">
             <h2 className="font-headline text-4xl md:text-5xl">Get in Touch</h2>

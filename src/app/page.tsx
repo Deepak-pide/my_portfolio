@@ -15,7 +15,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col space-y-24">
+    <div className="flex flex-col space-y-16 md:space-y-24">
       <HeroSection />
       <PortfolioSection />
       <Separator />

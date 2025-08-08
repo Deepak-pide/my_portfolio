@@ -15,7 +15,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="py-24 md:py-32 text-center">
+    <section className="py-20 md:py-32 text-center">
       <div className="container mx-auto">
         <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl tracking-wider leading-tight">
           DEEPAK
@@ -23,7 +23,7 @@ export function HeroSection() {
         <p className="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground">
           From embedded systems to full-stack development, I create solutions where hardware meets software. Explore my projects and let’s collaborate.
         </p>
-        <div className="mt-8 flex justify-center gap-4">
+        <div className="mt-8 flex justify-center flex-wrap gap-4">
           <Button asChild>
             <a href="/#contact">Get in Touch</a>
           </Button>

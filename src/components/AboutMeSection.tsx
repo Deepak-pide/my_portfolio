@@ -33,7 +33,7 @@ export function AboutMeSection() {
 
   if (loading || !data) {
     return (
-      <section id="about" className="py-16">
+      <section id="about" className="py-12 md:py-16">
         <div className="text-center md:text-left">
           <h2 className="font-headline text-4xl md:text-5xl mb-6">About Me</h2>
         </div>
@@ -57,7 +57,7 @@ export function AboutMeSection() {
   }
 
   return (
-    <section id="about" className="py-16 space-y-24">
+    <section id="about" className="py-12 md:py-16 space-y-16 md:space-y-24">
       <div>
          <div className="sticky top-16 z-30 bg-background py-4 mb-6">
             <div className="text-center md:text-left">

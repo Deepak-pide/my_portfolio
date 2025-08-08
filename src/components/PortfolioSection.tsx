@@ -102,7 +102,7 @@ export function PortfolioSection() {
 
   if (loading) {
     return (
-      <section id="portfolio" className="py-16">
+      <section id="portfolio" className="py-12 md:py-16">
         <div className="text-center">
           <h2 className="font-headline text-4xl md:text-5xl">My Work</h2>
           <p className="mt-2 text-lg text-muted-foreground">
@@ -131,14 +131,14 @@ export function PortfolioSection() {
   }
 
   return (
-    <section id="portfolio" className="py-16">
-        <div className="text-center">
+    <section id="portfolio" className="py-12 md:py-16">
+        <div className="text-center mb-8">
             <h2 className="font-headline text-4xl md:text-5xl">My Work</h2>
             <p className="mt-2 text-lg text-muted-foreground">
             A selection of my projects.
             </p>
         </div>
-        <Tabs defaultValue="software" className="w-full mt-8">
+        <Tabs defaultValue="software" className="w-full">
             <div className="sticky top-16 z-40 bg-background pb-4">
                 <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto">
                     <TabsTrigger value="software">Software</TabsTrigger>
