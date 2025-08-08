@@ -18,7 +18,7 @@ export function HeroSection() {
     <section className="py-20 md:py-32 text-center">
       <div className="container mx-auto">
         <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl tracking-wider leading-tight">
-          DEEPAK
+          <span className="text-shiny-steel">DEEPAK</span>
         </h1>
         <p className="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground">
           From embedded systems to full-stack development, I create solutions where hardware meets software. Explore my projects and let’s collaborate.

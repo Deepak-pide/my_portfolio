@@ -98,3 +98,24 @@
     -webkit-backface-visibility: hidden;
   }
 }
+
+@layer utilities {
+  @keyframes shine {
+    0% {
+      transform: translateX(-100%) skewX(-30deg);
+    }
+    100% {
+      transform: translateX(200%) skewX(-30deg);
+    }
+  }
+
+  .text-shiny-steel {
+    @apply relative overflow-hidden;
+    color: #a0a0a0;
+    background: linear-gradient(to right, #a0a0a0 0, white 50%, #a0a0a0 99%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 4s linear infinite;
+  }
+}
