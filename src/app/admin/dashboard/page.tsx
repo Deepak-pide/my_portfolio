@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { getProjects, deleteProject } from "@/actions/projects";
 import { getStartups, deleteStartup } from "@/actions/startups";
+import { getVisitCount } from "@/actions/stats";
 import type { Project, Startup } from "@/lib/data";
 import { ProjectForm } from "@/components/ProjectForm";
 import { AboutMeForm } from "@/components/AboutMeForm";
@@ -25,12 +26,14 @@ import {
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
 import { useToast } from "@/hooks/use-toast";
+import { Eye } from "lucide-react";
 
 export default function DashboardPage() {
   const router = useRouter();
   const { toast } = useToast();
   const [projects, setProjects] = useState<Project[]>([]);
   const [startups, setStartups] = useState<Startup[]>([]);
+  const [visitCount, setVisitCount] = useState<number>(0);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [editingStartup, setEditingStartup] = useState<Startup | null>(null);
   const [isProjectFormOpen, setIsProjectFormOpen] = useState(false);
@@ -40,13 +43,13 @@ export default function DashboardPage() {
 
   useEffect(() => {
     const checkAuth = async () => {
-      // Use onAuthStateChanged for robust auth state management
       const unsubscribe = auth.onAuthStateChanged(user => {
         if (user) {
           sessionStorage.setItem("isAdmin", "true");
           setIsAdmin(true);
           loadProjects();
           loadStartups();
+          loadVisitCount();
         } else {
           sessionStorage.removeItem("isAdmin");
           setIsAdmin(false);
@@ -77,6 +80,11 @@ export default function DashboardPage() {
     const fetchedStartups = await getStartups();
     setStartups(fetchedStartups);
   };
+  
+  const loadVisitCount = async () => {
+    const count = await getVisitCount();
+    setVisitCount(count);
+  }
 
   const handleEditProject = (project: Project) => {
     setEditingProject(project);
@@ -150,6 +158,24 @@ export default function DashboardPage() {
           onCancel={() => setIsAboutFormOpen(false)}
         />
       )}
+
+      {/* STATS SECTION */}
+        <section className="mb-12">
+             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                <Card>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">
+                        Total Visits
+                        </CardTitle>
+                         <Eye className="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-2xl font-bold">{visitCount}</div>
+                    </CardContent>
+                </Card>
+            </div>
+        </section>
+
 
       {/* STARTUPS SECTION */}
       <div className="flex justify-between items-center mb-8 mt-12">
