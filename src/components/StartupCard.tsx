@@ -25,7 +25,7 @@ export function StartupCard({ startup }: StartupCardProps) {
         )}>
             {/* Front of the card */}
             <div className="absolute w-full h-full backface-hidden flex flex-col items-center justify-center p-6 text-center">
-                <div className="relative w-24 h-24 mb-4">
+                <div className="relative w-24 h-24 mb-4 rounded-lg overflow-hidden">
                     <Image
                         src={startup.logo}
                         alt={`${startup.appName} Logo`}
