@@ -4,7 +4,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import { useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import { Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -57,6 +57,36 @@ export function ProjectForm({ project, onSuccess, onCancel }: ProjectFormProps) 
       tags: project?.tags.join(", ") || "",
     },
   });
+
+  useEffect(() => {
+    if (project) {
+        form.reset({
+            id: project.id,
+            title: project.title,
+            description: project.description,
+            longDescription: project.longDescription,
+            category: project.category,
+            image: project.image,
+            extraPhotos: project.extraPhotos?.join(", ") || "",
+            aiHint: project.aiHint,
+            liveUrl: project.liveUrl,
+            tags: project.tags.join(", "),
+        });
+    } else {
+        form.reset({
+            id: undefined,
+            title: "",
+            description: "",
+            longDescription: "",
+            category: "Software",
+            image: "",
+            extraPhotos: "",
+            aiHint: "",
+            liveUrl: "",
+            tags: "",
+        });
+    }
+  }, [project, form]);
 
   function onSubmit(values: z.infer<typeof projectSchema>) {
     startTransition(async () => {

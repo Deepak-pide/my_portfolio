@@ -4,7 +4,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import { useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import { Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -46,6 +46,22 @@ export function StartupForm({ startup, onSuccess, onCancel }: StartupFormProps) 
       link: startup?.link || "",
     },
   });
+
+  useEffect(() => {
+    if (startup) {
+      form.reset(startup);
+    } else {
+        form.reset({
+            id: undefined,
+            appName: "",
+            description: "",
+            logo: "",
+            aiHint: "",
+            link: "",
+        });
+    }
+  }, [startup, form]);
+
 
   function onSubmit(values: z.infer<typeof startupSchema>) {
     startTransition(async () => {
