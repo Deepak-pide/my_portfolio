@@ -22,7 +22,13 @@ export async function getAboutMeData(): Promise<AboutMeData> {
             "TypeScript", "JavaScript", "React", "Next.js", "Node.js", "Python",
             "GraphQL", "REST APIs", "PostgreSQL", "MongoDB", "Docker", "Git",
             "Raspberry Pi", "Arduino", "IoT", "Embedded Systems"
-        ]
+        ],
+        socials: {
+            instagram: "#",
+            github: "#",
+            linkedin: "#"
+        },
+        extraLinks: []
     };
   }
 }

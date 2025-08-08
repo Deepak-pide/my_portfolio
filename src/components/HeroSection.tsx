@@ -1,8 +1,19 @@
+
+"use client"
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { Github, Linkedin, Instagram } from "lucide-react";
+import { getAboutMeData } from "@/actions/about";
+import { useEffect, useState } from "react";
+import type { AboutMeData } from "@/lib/data";
 
 export function HeroSection() {
+  const [data, setData] = useState<AboutMeData | null>(null);
+
+  useEffect(() => {
+    getAboutMeData().then(setData);
+  }, []);
+
   return (
     <section className="py-24 md:py-32 text-center">
       <div className="container mx-auto">
@@ -16,26 +27,33 @@ export function HeroSection() {
           <Button asChild>
             <a href="/#contact">Get in Touch</a>
           </Button>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="icon" asChild>
-              <Link href="#">
-                <Instagram className="h-5 w-5" />
-                <span className="sr-only">Instagram</span>
-              </Link>
+          {data?.extraLinks?.map((link) => (
+            <Button asChild key={link.url} variant="secondary">
+                <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a>
             </Button>
-            <Button variant="outline" size="icon" asChild>
-              <Link href="#">
-                <Github className="h-5 w-5" />
-                <span className="sr-only">GitHub</span>
-              </Link>
-            </Button>
-            <Button variant="outline" size="icon" asChild>
-              <Link href="#">
-                <Linkedin className="h-5 w-5" />
-                <span className="sr-only">LinkedIn</span>
-              </Link>
-            </Button>
-          </div>
+          ))}
+          {data?.socials && (
+            <div className="flex items-center gap-2">
+                <Button variant="outline" size="icon" asChild>
+                <Link href={data.socials.instagram} target="_blank">
+                    <Instagram className="h-5 w-5" />
+                    <span className="sr-only">Instagram</span>
+                </Link>
+                </Button>
+                <Button variant="outline" size="icon" asChild>
+                <Link href={data.socials.github} target="_blank">
+                    <Github className="h-5 w-5" />
+                    <span className="sr-only">GitHub</span>
+                </Link>
+                </Button>
+                <Button variant="outline" size="icon" asChild>
+                <Link href={data.socials.linkedin} target="_blank">
+                    <Linkedin className="h-5 w-5" />
+                    <span className="sr-only">LinkedIn</span>
+                </Link>
+                </Button>
+            </div>
+          )}
         </div>
       </div>
     </section>

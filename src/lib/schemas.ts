@@ -1,6 +1,7 @@
 
 
 
+
 import { z } from "zod";
 
 export const contactFormSchema = z.object({
@@ -22,10 +23,21 @@ export const projectSchema = z.object({
   tags: z.string().min(1, "Please enter at least one label."),
 });
 
+const extraLinkSchema = z.object({
+  label: z.string().min(1, "Link label cannot be empty."),
+  url: z.string().url("Please enter a valid URL."),
+});
+
 export const aboutMeSchema = z.object({
     photo: z.string().url("Please enter a valid URL."),
     tagline: z.string().min(10, "Tagline must be at least 10 characters."),
     skills: z.array(z.string()).min(1, "Please add at least one skill."),
+    socials: z.object({
+        instagram: z.string().url("Please enter a valid Instagram URL."),
+        github: z.string().url("Please enter a valid GitHub URL."),
+        linkedin: z.string().url("Please enter a valid LinkedIn URL."),
+    }),
+    extraLinks: z.array(extraLinkSchema).optional(),
 });
 
 export const startupSchema = z.object({

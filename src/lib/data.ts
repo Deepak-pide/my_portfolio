@@ -22,10 +22,23 @@ export interface Project {
   aiHint: string;
 }
 
+export interface SocialLinks {
+    instagram: string;
+    github: string;
+    linkedin: string;
+}
+
+export interface ExtraLink {
+    label: string;
+    url: string;
+}
+
 export interface AboutMeData {
     photo: string;
     tagline: string;
     skills: string[];
+    socials: SocialLinks,
+    extraLinks: ExtraLink[]
 }
 
 

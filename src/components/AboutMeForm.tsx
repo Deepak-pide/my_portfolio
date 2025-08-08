@@ -2,10 +2,10 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import type { z } from "zod";
 import { useEffect, useTransition } from "react";
-import { Loader2, X } from "lucide-react";
+import { Loader2, X, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -22,6 +22,7 @@ import { getAboutMeData, updateAboutMeData } from "@/actions/about";
 import { aboutMeSchema } from "@/lib/schemas";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
+import { Separator } from "./ui/separator";
 
 interface AboutMeFormProps {
   onSuccess: () => void;
@@ -38,7 +39,18 @@ export function AboutMeForm({ onSuccess, onCancel }: AboutMeFormProps) {
       photo: "",
       tagline: "",
       skills: [],
+      socials: {
+          instagram: "",
+          github: "",
+          linkedin: ""
+      },
+      extraLinks: [],
     },
+  });
+  
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: "extraLinks",
   });
   
   const skills = form.watch("skills");
@@ -47,9 +59,9 @@ export function AboutMeForm({ onSuccess, onCancel }: AboutMeFormProps) {
     async function loadData() {
       const data = await getAboutMeData();
       form.reset({
-          photo: data.photo,
-          tagline: data.tagline,
-          skills: data.skills,
+          ...data,
+          skills: data.skills || [],
+          extraLinks: data.extraLinks || []
       });
     }
     loadData();
@@ -144,7 +156,102 @@ export function AboutMeForm({ onSuccess, onCancel }: AboutMeFormProps) {
                     <FormMessage />
                 </FormItem>
 
-                <div className="flex justify-end gap-2">
+                <Separator />
+                <h3 className="text-lg font-medium">Social Links</h3>
+                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                     <FormField
+                        control={form.control}
+                        name="socials.instagram"
+                        render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Instagram URL</FormLabel>
+                            <FormControl>
+                            <Input placeholder="https://instagram.com/..." {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                        )}
+                    />
+                     <FormField
+                        control={form.control}
+                        name="socials.github"
+                        render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>GitHub URL</FormLabel>
+                            <FormControl>
+                            <Input placeholder="https://github.com/..." {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                        )}
+                    />
+                     <FormField
+                        control={form.control}
+                        name="socials.linkedin"
+                        render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>LinkedIn URL</FormLabel>
+                            <FormControl>
+                            <Input placeholder="https://linkedin.com/in/..." {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                        )}
+                    />
+                </div>
+                
+                <Separator />
+                <div className="flex justify-between items-center">
+                    <h3 className="text-lg font-medium">Extra Links / Buttons</h3>
+                    <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => append({ label: "", url: "" })}
+                    >
+                        <Plus className="mr-2 h-4 w-4" />
+                        Add Link
+                    </Button>
+                </div>
+
+                <div className="space-y-4">
+                    {fields.map((field, index) => (
+                        <div key={field.id} className="flex gap-4 items-end p-4 border rounded-lg">
+                             <FormField
+                                control={form.control}
+                                name={`extraLinks.${index}.label`}
+                                render={({ field }) => (
+                                <FormItem className="flex-grow">
+                                    <FormLabel>Button Label</FormLabel>
+                                    <FormControl>
+                                    <Input placeholder="e.g. My Blog" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                                )}
+                            />
+                             <FormField
+                                control={form.control}
+                                name={`extraLinks.${index}.url`}
+                                render={({ field }) => (
+                                <FormItem className="flex-grow">
+                                    <FormLabel>Button URL</FormLabel>
+                                    <FormControl>
+                                    <Input placeholder="https://example.com" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                                )}
+                            />
+                            <Button type="button" variant="destructive" size="icon" onClick={() => remove(index)}>
+                                <X className="h-4 w-4" />
+                            </Button>
+                        </div>
+                    ))}
+                </div>
+
+
+                <div className="flex justify-end gap-2 pt-4">
                     <Button type="button" variant="outline" onClick={onCancel} disabled={isPending}>
                         Cancel
                     </Button>
@@ -159,5 +266,3 @@ export function AboutMeForm({ onSuccess, onCancel }: AboutMeFormProps) {
     </Card>
   );
 }
-
-    
