@@ -132,61 +132,34 @@ export function PortfolioSection() {
 
   return (
     <section id="portfolio" className="py-16">
-      <div className="text-center">
-        <h2 className="font-headline text-4xl md:text-5xl">My Work</h2>
-        <p className="mt-2 text-lg text-muted-foreground">
-          A selection of my projects.
-        </p>
-      </div>
-
-      {/* Mobile View with Toggle */}
-      <div className="mt-8 md:hidden">
         <Tabs defaultValue="software" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="software">Software</TabsTrigger>
-            <TabsTrigger value="hardware">Hardware</TabsTrigger>
-          </TabsList>
-          <TabsContent value="software">
-            <div className="grid grid-cols-1 gap-8 mt-8">
-              {softwareProjects.map((project, index) => (
-                <ProjectCard key={index} project={project} onCardClick={handleCardClick} />
-              ))}
+            <div className="sticky top-16 z-40 bg-background pt-8 pb-4">
+                 <div className="text-center">
+                    <h2 className="font-headline text-4xl md:text-5xl">My Work</h2>
+                    <p className="mt-2 text-lg text-muted-foreground">
+                    A selection of my projects.
+                    </p>
+                </div>
+                <TabsList className="grid w-full grid-cols-2 mt-8 max-w-md mx-auto">
+                    <TabsTrigger value="software">Software</TabsTrigger>
+                    <TabsTrigger value="hardware">Hardware</TabsTrigger>
+                </TabsList>
             </div>
-          </TabsContent>
-          <TabsContent value="hardware">
-            <div className="grid grid-cols-1 gap-8 mt-8">
-              {hardwareProjects.map((project, index) => (
-                <ProjectCard key={index} project={project} onCardClick={handleCardClick} />
-              ))}
-            </div>
-          </TabsContent>
+            <TabsContent value="software">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+                {softwareProjects.map((project, index) => (
+                    <ProjectCard key={index} project={project} onCardClick={handleCardClick} />
+                ))}
+                </div>
+            </TabsContent>
+            <TabsContent value="hardware">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+                {hardwareProjects.map((project, index) => (
+                    <ProjectCard key={index} project={project} onCardClick={handleCardClick} />
+                ))}
+                </div>
+            </TabsContent>
         </Tabs>
-      </div>
-
-      {/* Desktop View */}
-      <div className="mt-12 space-y-16 hidden md:block">
-        <div>
-          <h3 className="font-headline text-3xl md:text-4xl mb-8 text-center">
-            Software
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {softwareProjects.map((project, index) => (
-               <ProjectCard key={index} project={project} onCardClick={handleCardClick} />
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <h3 className="font-headline text-3xl md:text-4xl mb-8 text-center">
-            Hardware
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {hardwareProjects.map((project, index) => (
-              <ProjectCard key={index} project={project} onCardClick={handleCardClick} />
-            ))}
-          </div>
-        </div>
-      </div>
 
        {selectedProject && (
         <Dialog open={!!selectedProject} onOpenChange={(isOpen) => !isOpen && handleDialogClose()}>
