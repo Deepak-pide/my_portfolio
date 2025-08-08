@@ -59,9 +59,11 @@ export function AboutMeSection() {
   return (
     <section id="about" className="py-16 space-y-24">
       <div>
-        <div className="text-center md:text-left">
-            <h2 className="font-headline text-4xl md:text-5xl mb-6">About Me</h2>
-        </div>
+         <div className="sticky top-16 z-30 bg-background py-4 mb-6">
+            <div className="text-center md:text-left">
+                <h2 className="font-headline text-4xl md:text-5xl">About Me</h2>
+            </div>
+         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
             <div className="md:col-span-1 flex flex-col items-center text-center">
                 <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-primary/10 shadow-lg">
@@ -99,9 +101,11 @@ export function AboutMeSection() {
       <Separator />
       
       <div>
-        <div className="text-center">
-            <h2 className="font-headline text-4xl md:text-5xl mb-12">Startups</h2>
-        </div>
+         <div className="sticky top-16 z-30 bg-background py-4 mb-12">
+            <div className="text-center">
+                <h2 className="font-headline text-4xl md:text-5xl">Startups</h2>
+            </div>
+         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {startups.map((startup) => (
                 <StartupCard key={startup.id} startup={startup} />
