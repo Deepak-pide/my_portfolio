@@ -3,63 +3,61 @@
 
 import type { Startup } from "@/lib/data";
 import { revalidatePath } from "next/cache";
+import { db } from "@/lib/firebase";
+import { collection, getDocs, addDoc, doc, updateDoc, deleteDoc, query, orderBy } from "firebase/firestore";
 
-// In a real application, you would use a database like Firestore.
-// For this example, we'll use an in-memory array.
-let startups: Startup[] = [
-    {
-        id: "1",
-        logo: "https://placehold.co/100x100.png",
-        appName: "Innovate AI",
-        description: "A platform for developers to collaborate on AI projects and share resources.",
-        link: "#",
-        aiHint: "AI logo"
-    },
-    {
-        id: "2",
-        logo: "https://placehold.co/100x100.png",
-        appName: "CircuitHub",
-        description: "An online community and marketplace for hardware enthusiasts and creators.",
-        link: "#",
-        aiHint: "circuit logo"
-    },
-];
+const STARTUPS_COLLECTION_REF = collection(db, "startups");
 
 export async function getStartups(): Promise<Startup[]> {
-  // Simulate database delay
-  await new Promise(resolve => setTimeout(resolve, 500));
-  return startups;
+    try {
+        const q = query(STARTUPS_COLLECTION_REF, orderBy("appName"));
+        const querySnapshot = await getDocs(q);
+        return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Startup));
+    } catch (error) {
+        console.error("Error fetching startups: ", error);
+        return [];
+    }
 }
 
 export async function addStartup(startupData: Omit<Startup, 'id'>) {
-    const newStartup: Startup = {
-        id: Date.now().toString(),
-        ...startupData,
-    };
-    startups.push(newStartup);
-    revalidatePath("/admin/dashboard");
-    revalidatePath("/");
-    return { success: true, startup: newStartup };
+    try {
+        const docRef = await addDoc(STARTUPS_COLLECTION_REF, startupData);
+        revalidatePath("/");
+        revalidatePath("/admin/dashboard");
+        return { success: true, startup: { id: docRef.id, ...startupData } };
+    } catch (error) {
+        console.error("Error adding startup: ", error);
+        return { success: false, message: "Failed to add startup to Firestore." };
+    }
 }
 
 export async function updateStartup(startupData: Startup) {
-    const index = startups.findIndex(p => p.id === startupData.id);
-    if (index === -1) {
-        return { success: false, message: "Startup not found" };
+    if (!startupData.id) {
+        return { success: false, message: "Startup ID is missing" };
     }
-    startups[index] = startupData;
-    revalidatePath("/admin/dashboard");
-    revalidatePath("/");
-    return { success: true, startup: startups[index] };
+    const startupDocRef = doc(db, "startups", startupData.id);
+    const { id, ...dataToUpdate } = startupData;
+
+    try {
+        await updateDoc(startupDocRef, dataToUpdate);
+        revalidatePath("/");
+        revalidatePath("/admin/dashboard");
+        return { success: true, startup: startupData };
+    } catch (error) {
+        console.error("Error updating startup: ", error);
+        return { success: false, message: "Failed to update startup in Firestore." };
+    }
 }
 
 export async function deleteStartup(id: string) {
-    const index = startups.findIndex(p => p.id === id);
-    if (index === -1) {
-        return { success: false, message: "Startup not found" };
+    try {
+        const startupDocRef = doc(db, "startups", id);
+        await deleteDoc(startupDocRef);
+        revalidatePath("/");
+        revalidatePath("/admin/dashboard");
+        return { success: true };
+    } catch (error) {
+        console.error("Error deleting startup: ", error);
+        return { success: false, message: "Failed to delete startup from Firestore." };
     }
-    startups.splice(index, 1);
-    revalidatePath("/admin/dashboard");
-    revalidatePath("/");
-    return { success: true };
 }
