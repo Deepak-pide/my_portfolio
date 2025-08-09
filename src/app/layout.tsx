@@ -9,8 +9,7 @@ import { MobileFooter } from "@/components/MobileFooter";
 
 export const metadata: Metadata = {
   title: "DEEPAK",
-  description:
-    "A visually appealing portfolio showcasing projects, skills, and experience.",
+  description: "",
   manifest: "/manifest.json",
 };
 
@@ -22,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect width='16' height='16' x='4' y='4' rx='2'/><rect width='6' height='6' x='9' y='9' rx='1'/><path d='M15 2v2M15 20v2M9 2v2M9 20v2M2 9h2M2 15h2M20 9h2M20 15h2'/></svg>" />
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M30,10 L70,10 L70,20 L80,20 L80,30 L90,30 L90,70 L80,70 L80,80 L70,80 L70,90 L30,90 L30,80 L20,80 L20,70 L10,70 L10,30 L20,30 L20,20 L30,20 Z M40,30 L60,30 L60,40 L70,40 L70,60 L60,60 L60,70 L40,70 L40,60 L30,60 L30,40 L40,40 Z' fill='white' stroke='black' stroke-width='2.5'/></svg>" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
