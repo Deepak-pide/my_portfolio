@@ -2,6 +2,7 @@
 
 
 
+
 import { z } from "zod";
 
 export const contactFormSchema = z.object({
@@ -33,9 +34,9 @@ export const aboutMeSchema = z.object({
     tagline: z.string().min(10, "Tagline must be at least 10 characters."),
     skills: z.array(z.string()).min(1, "Please add at least one skill."),
     socials: z.object({
-        instagram: z.string().url("Please enter a valid Instagram URL."),
-        github: z.string().url("Please enter a valid GitHub URL."),
-        linkedin: z.string().url("Please enter a valid LinkedIn URL."),
+        instagram: z.string().url("Please enter a valid URL or leave blank.").optional().or(z.literal('')),
+        github: z.string().url("Please enter a valid URL or leave blank.").optional().or(z.literal('')),
+        linkedin: z.string().url("Please enter a valid URL or leave blank.").optional().or(z.literal('')),
     }),
     extraLinks: z.array(extraLinkSchema).optional(),
 });
