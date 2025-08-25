@@ -57,20 +57,3 @@ export function StartupCard({ startup }: StartupCardProps) {
     </div>
   );
 }
-
-// Add this to your globals.css or a style tag
-/*
-.perspective-1000 {
-  perspective: 1000px;
-}
-.transform-style-preserve-3d {
-  transform-style: preserve-3d;
-}
-.rotate-y-180 {
-  transform: rotateY(180deg);
-}
-.backface-hidden {
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-*/
