@@ -11,7 +11,10 @@ import { incrementVisits } from "@/actions/stats";
 
 export default function Home() {
   useEffect(() => {
-    incrementVisits();
+    if (sessionStorage.getItem("hasVisited") !== "true") {
+      incrementVisits();
+      sessionStorage.setItem("hasVisited", "true");
+    }
   }, []);
 
   return (
