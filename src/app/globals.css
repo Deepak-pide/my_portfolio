@@ -147,4 +147,7 @@
   .animate-scroll {
     animation: scroll 40s linear infinite;
   }
+  .group:hover .animate-scroll {
+    animation-play-state: paused;
+  }
 }
