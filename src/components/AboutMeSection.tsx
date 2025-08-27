@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "./ui/badge";
@@ -11,23 +11,11 @@ import type { AboutMeData, Startup } from "@/lib/data";
 import { getStartups } from "@/actions/startups";
 import { StartupCard } from "./StartupCard";
 import { Separator } from "./ui/separator";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
 
 export function AboutMeSection() {
   const [data, setData] = useState<AboutMeData | null>(null);
   const [startups, setStartups] = useState<Startup[]>([]);
   const [loading, setLoading] = useState(true);
-
-   const plugin = useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: true })
-  );
 
   useEffect(() => {
     async function loadData() {
@@ -42,6 +30,8 @@ export function AboutMeSection() {
     }
     loadData();
   }, []);
+
+  const duplicatedStartups = startups.length > 0 ? [...startups, ...startups] : [];
 
   if (loading || !data) {
     return (
@@ -118,30 +108,15 @@ export function AboutMeSection() {
                 <h2 className="font-headline text-4xl md:text-5xl">Startups</h2>
             </div>
          </div>
-         {/* Mobile Carousel */}
-        <div className="sm:hidden">
-          <Carousel
-            plugins={[plugin.current]}
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-            onMouseEnter={() => plugin.current.stop()}
-            onMouseLeave={() => plugin.current.reset()}
-          >
-            <CarouselContent>
-              {startups.map((startup) => (
-                <CarouselItem key={startup.id} className="basis-4/5">
-                   <div className="p-1">
-                    <StartupCard startup={startup} />
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="ml-12"/>
-            <CarouselNext className="mr-12"/>
-          </Carousel>
+         {/* Mobile Infinite Scroller */}
+        <div className="sm:hidden relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]">
+            <div className="flex w-max animate-scroll">
+                {duplicatedStartups.map((startup, index) => (
+                    <div key={index} className="w-[80vw] max-w-xs p-4">
+                        <StartupCard startup={startup} />
+                    </div>
+                ))}
+            </div>
         </div>
 
         {/* Desktop Grid */}
