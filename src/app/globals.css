@@ -136,11 +136,11 @@
   }
 
   @keyframes scroll {
-    0% {
+    from {
       transform: translateX(0);
     }
-    100% {
-      transform: translateX(calc(-360px * 7));
+    to {
+      transform: translateX(calc(-1 * var(--scroll-width)));
     }
   }
 

@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "./ui/badge";
@@ -16,6 +16,7 @@ export function AboutMeSection() {
   const [data, setData] = useState<AboutMeData | null>(null);
   const [startups, setStartups] = useState<Startup[]>([]);
   const [loading, setLoading] = useState(true);
+  const scrollerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     async function loadData() {
@@ -30,6 +31,16 @@ export function AboutMeSection() {
     }
     loadData();
   }, []);
+
+  useEffect(() => {
+    if (!loading && startups.length > 0 && scrollerRef.current) {
+        const scrollerInner = scrollerRef.current.querySelector('.animate-scroll');
+        if (scrollerInner) {
+            const scrollWidth = scrollerInner.scrollWidth / 2;
+            scrollerRef.current.style.setProperty('--scroll-width', `${scrollWidth}px`);
+        }
+    }
+  }, [loading, startups]);
 
   const duplicatedStartups = startups.length > 0 ? [...startups, ...startups] : [];
 
@@ -109,7 +120,7 @@ export function AboutMeSection() {
             </div>
          </div>
          {/* Mobile Infinite Scroller */}
-        <div className="sm:hidden relative w-full overflow-x-auto [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]">
+        <div ref={scrollerRef} className="sm:hidden relative w-full overflow-x-auto [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]">
             <div className="flex w-max animate-scroll">
                 {duplicatedStartups.map((startup, index) => (
                     <div key={index} className="w-[80vw] max-w-xs p-4">
