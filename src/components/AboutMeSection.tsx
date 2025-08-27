@@ -120,7 +120,7 @@ export function AboutMeSection() {
             </div>
          </div>
          {/* Mobile Infinite Scroller */}
-        <div ref={scrollerRef} className="sm:hidden group relative w-full overflow-x-auto [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]">
+        <div ref={scrollerRef} className="sm:hidden group relative w-full overflow-x-auto no-scrollbar [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]">
             <div className="flex w-max animate-scroll">
                 {duplicatedStartups.map((startup, index) => (
                     <div key={index} className="w-[80vw] max-w-xs p-4">
