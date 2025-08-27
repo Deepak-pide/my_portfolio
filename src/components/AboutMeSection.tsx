@@ -11,6 +11,13 @@ import type { AboutMeData, Startup } from "@/lib/data";
 import { getStartups } from "@/actions/startups";
 import { StartupCard } from "./StartupCard";
 import { Separator } from "./ui/separator";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export function AboutMeSection() {
   const [data, setData] = useState<AboutMeData | null>(null);
@@ -57,7 +64,7 @@ export function AboutMeSection() {
   }
 
   return (
-    <section id="about" className="py-12 md:py-16 space-y-16 md:space-y-24">
+    <section id="about" className="space-y-16 py-12 md:space-y-24 md:py-16">
       <div>
          <div className="sticky top-16 z-30 bg-background py-4 mb-6">
             <div className="text-center md:text-left">
@@ -106,7 +113,31 @@ export function AboutMeSection() {
                 <h2 className="font-headline text-4xl md:text-5xl">Startups</h2>
             </div>
          </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+         {/* Mobile Carousel */}
+        <div className="sm:hidden">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {startups.map((startup) => (
+                <CarouselItem key={startup.id} className="basis-4/5">
+                   <div className="p-1">
+                    <StartupCard startup={startup} />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="ml-12"/>
+            <CarouselNext className="mr-12"/>
+          </Carousel>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 gap-8">
             {startups.map((startup) => (
                 <StartupCard key={startup.id} startup={startup} />
             ))}
