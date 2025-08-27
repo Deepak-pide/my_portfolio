@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "./ui/badge";
@@ -18,11 +18,16 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 export function AboutMeSection() {
   const [data, setData] = useState<AboutMeData | null>(null);
   const [startups, setStartups] = useState<Startup[]>([]);
   const [loading, setLoading] = useState(true);
+
+   const plugin = useRef(
+    Autoplay({ delay: 2000, stopOnInteraction: true })
+  );
 
   useEffect(() => {
     async function loadData() {
@@ -64,7 +69,7 @@ export function AboutMeSection() {
   }
 
   return (
-    <section id="about" className="space-y-16 py-12 md:space-y-24 md:py-16">
+    <section id="about" className="space-y-12 md:space-y-24 py-12 md:py-16">
       <div>
          <div className="sticky top-16 z-30 bg-background py-4 mb-6">
             <div className="text-center md:text-left">
@@ -116,11 +121,14 @@ export function AboutMeSection() {
          {/* Mobile Carousel */}
         <div className="sm:hidden">
           <Carousel
+            plugins={[plugin.current]}
             opts={{
               align: "start",
               loop: true,
             }}
             className="w-full"
+            onMouseEnter={() => plugin.current.stop()}
+            onMouseLeave={() => plugin.current.reset()}
           >
             <CarouselContent>
               {startups.map((startup) => (
