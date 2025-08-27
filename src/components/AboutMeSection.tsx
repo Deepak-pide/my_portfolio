@@ -59,7 +59,7 @@ export function AboutMeSection() {
   }
 
   return (
-    <section id="about" className="space-y-12 md:space-y-24 py-12 md:py-16">
+    <section id="about" className="space-y-16 md:space-y-24 py-12 md:py-16">
       <div>
          <div className="sticky top-16 z-30 bg-background py-4 mb-6">
             <div className="text-center md:text-left">
@@ -109,8 +109,8 @@ export function AboutMeSection() {
             </div>
          </div>
          {/* Mobile Infinite Scroller */}
-        <div className="sm:hidden relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]">
-            <div className="flex w-max animate-scroll">
+        <div className="sm:hidden group relative w-full overflow-x-auto [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]">
+            <div className="flex w-max animate-scroll group-hover:[animation-play-state:paused]">
                 {duplicatedStartups.map((startup, index) => (
                     <div key={index} className="w-[80vw] max-w-xs p-4">
                         <StartupCard startup={startup} />
