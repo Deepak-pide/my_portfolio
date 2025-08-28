@@ -134,20 +134,4 @@
     -webkit-text-fill-color: transparent;
     animation: shine 4s linear infinite;
   }
-
-  @keyframes scroll {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(calc(-1 * var(--scroll-width)));
-    }
-  }
-
-  .animate-scroll {
-    animation: scroll 40s linear infinite;
-  }
-  .group:hover .animate-scroll {
-    animation-play-state: paused;
-  }
 }

@@ -11,12 +11,20 @@ import type { AboutMeData, Startup } from "@/lib/data";
 import { getStartups } from "@/actions/startups";
 import { StartupCard } from "./StartupCard";
 import { Separator } from "./ui/separator";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+import Autoplay from "embla-carousel-autoplay"
+
 
 export function AboutMeSection() {
   const [data, setData] = useState<AboutMeData | null>(null);
   const [startups, setStartups] = useState<Startup[]>([]);
   const [loading, setLoading] = useState(true);
-  const scrollerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     async function loadData() {
@@ -31,18 +39,6 @@ export function AboutMeSection() {
     }
     loadData();
   }, []);
-
-  useEffect(() => {
-    if (!loading && startups.length > 0 && scrollerRef.current) {
-        const scrollerInner = scrollerRef.current.querySelector('.animate-scroll');
-        if (scrollerInner) {
-            const scrollWidth = scrollerInner.scrollWidth / 2;
-            scrollerRef.current.style.setProperty('--scroll-width', `${scrollWidth}px`);
-        }
-    }
-  }, [loading, startups]);
-
-  const duplicatedStartups = startups.length > 0 ? [...startups, ...startups] : [];
 
   if (loading || !data) {
     return (
@@ -119,16 +115,35 @@ export function AboutMeSection() {
                 <h2 className="font-headline text-4xl md:text-5xl">Startups</h2>
             </div>
          </div>
-         {/* Mobile Infinite Scroller */}
-        <div ref={scrollerRef} className="sm:hidden group relative w-full overflow-x-auto no-scrollbar [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]">
-            <div className="flex w-max animate-scroll">
-                {duplicatedStartups.map((startup, index) => (
-                    <div key={index} className="w-[80vw] max-w-xs p-4">
-                        <StartupCard startup={startup} />
-                    </div>
+         {/* Mobile Carousel */}
+        <div className="sm:hidden">
+            <Carousel
+                opts={{
+                    align: "start",
+                    loop: true,
+                }}
+                plugins={[
+                    Autoplay({
+                      delay: 3000,
+                      stopOnInteraction: true,
+                    }),
+                ]}
+                className="w-full max-w-xs mx-auto"
+            >
+                <CarouselContent>
+                {startups.map((startup) => (
+                    <CarouselItem key={startup.id} className="basis-5/6">
+                       <div className="p-1">
+                         <StartupCard startup={startup} />
+                       </div>
+                    </CarouselItem>
                 ))}
-            </div>
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+            </Carousel>
         </div>
+
 
         {/* Desktop Grid */}
         <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 gap-8">
