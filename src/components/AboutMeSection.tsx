@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -132,7 +131,7 @@ export function AboutMeSection() {
             >
                 <CarouselContent>
                 {startups.map((startup) => (
-                    <CarouselItem key={startup.id} className="basis-5/6">
+                    <CarouselItem key={startup.id}>
                        <div className="p-1">
                          <StartupCard startup={startup} />
                        </div>
