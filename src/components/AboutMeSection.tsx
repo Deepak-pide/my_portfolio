@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useTransition } from "react";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "./ui/badge";
@@ -16,12 +16,19 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
+import { generateAboutMe } from "@/ai/flows/generate-about-me";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { Loader2 } from "lucide-react";
 
 
 export function AboutMeSection() {
   const [data, setData] = useState<AboutMeData | null>(null);
   const [startups, setStartups] = useState<Startup[]>([]);
   const [loading, setLoading] = useState(true);
+  const [generatedContent, setGeneratedContent] = useState("");
+  const [visitorRole, setVisitorRole] = useState("potential client");
+  const [isGenerating, startTransition] = useTransition();
+
 
   useEffect(() => {
     async function loadData() {
@@ -36,6 +43,21 @@ export function AboutMeSection() {
     }
     loadData();
   }, []);
+  
+  useEffect(() => {
+    if (!loading) {
+       handleGenerateContent(visitorRole);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading]);
+
+  const handleGenerateContent = (role: string) => {
+    setVisitorRole(role);
+    startTransition(async () => {
+        const result = await generateAboutMe({ visitorRole: role });
+        setGeneratedContent(result.aboutMeContent);
+    });
+  }
 
   if (loading || !data) {
     return (
@@ -57,6 +79,11 @@ export function AboutMeSection() {
               </div>
             </div>
           </div>
+           <div className="md:col-span-2 space-y-4">
+                <Skeleton className="h-8 w-64" />
+                <Skeleton className="h-24 w-full" />
+                <Skeleton className="h-6 w-48" />
+            </div>
         </div>
       </section>
     );
@@ -97,8 +124,34 @@ export function AboutMeSection() {
                 </div>
             </div>
             <div className="md:col-span-2">
-                
-                <div className="text-muted-foreground space-y-4 min-h-[150px]">
+                <div className="flex flex-col space-y-4">
+                   <div className="flex items-center gap-4">
+                     <p className="text-muted-foreground">Tailor my introduction for a: </p>
+                     <Select value={visitorRole} onValueChange={handleGenerateContent}>
+                        <SelectTrigger className="w-[200px]">
+                            <SelectValue placeholder="Select your role" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="potential client">Potential Client</SelectItem>
+                            <SelectItem value="potential employer">Employer</SelectItem>
+                            <SelectItem value="potential collaborator">Collaborator</SelectItem>
+                        </SelectContent>
+                    </Select>
+                   </div>
+                   
+                   <div className="text-muted-foreground space-y-4 min-h-[150px]">
+                        {isGenerating ? (
+                            <div className="space-y-2">
+                                <Skeleton className="h-4 w-full" />
+                                <Skeleton className="h-4 w-full" />
+                                <Skeleton className="h-4 w-5/6" />
+                                <Skeleton className="h-4 w-3/4" />
+                            </div>
+                        ) : (
+                            <p className="whitespace-pre-line">{generatedContent}</p>
+                        )}
+                   </div>
+
                 </div>
             </div>
         </div>
