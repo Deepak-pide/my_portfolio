@@ -50,19 +50,14 @@ export function AboutMeSection() {
             <Skeleton className="w-48 h-48 rounded-full" />
             <Skeleton className="h-8 w-48 mt-4" />
             <Skeleton className="h-6 w-64 mt-2" />
-            <div className="mt-6 w-full">
-              <Skeleton className="h-8 w-32 mb-4 mx-auto" />
-              <div className="flex flex-wrap gap-2 justify-center">
+          </div>
+           <div className="md:col-span-2 space-y-4">
+              <Skeleton className="h-8 w-32 mb-4" />
+              <div className="flex flex-wrap gap-2">
                 {[...Array(6)].map((_, i) => (
                   <Skeleton key={i} className="h-8 w-20" />
                 ))}
               </div>
-            </div>
-          </div>
-           <div className="md:col-span-2 space-y-4">
-                <Skeleton className="h-8 w-64" />
-                <Skeleton className="h-24 w-full" />
-                <Skeleton className="h-6 w-48" />
             </div>
         </div>
       </section>
@@ -92,24 +87,17 @@ export function AboutMeSection() {
                 <p className="text-muted-foreground mt-2 italic">
                 {data.tagline}
                 </p>
-                <div className="mt-6 w-full">
-                    <h3 className="font-headline text-2xl mb-4">My Skills</h3>
-                    <div className="flex flex-wrap gap-2 justify-center">
+            </div>
+            <div className="md:col-span-2">
+                <div className="flex flex-col space-y-4">
+                    <h3 className="font-headline text-2xl mb-4 text-center md:text-left">My Skills</h3>
+                    <div className="flex flex-wrap gap-2 justify-center md:justify-start">
                         {data.skills.map((skill) => (
                             <Badge key={skill} variant="secondary" className="text-sm px-3 py-1">
                             {skill}
                             </Badge>
                         ))}
                     </div>
-                </div>
-            </div>
-            <div className="md:col-span-2">
-                <div className="flex flex-col space-y-4">
-                   <p className="text-muted-foreground whitespace-pre-line">
-                     I am a passionate developer with a strong background in both hardware and software. I love building things that live at the intersection of the physical and digital worlds. From crafting embedded systems with Raspberry Pi and Arduino to building full-stack web applications with the latest technologies, I enjoy tackling complex challenges and turning ideas into reality.
-                     <br/><br/>
-                     This portfolio showcases a collection of my work, including personal projects, startup ventures, and technical explorations. I'm always eager to learn, collaborate, and take on new challenges. Feel free to explore my projects and get in touch if you'd like to connect!
-                   </p>
                 </div>
             </div>
         </div>
